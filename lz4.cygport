@@ -11,13 +11,14 @@ SRC_DIR="lz4-${VERSION}"
 LICENSE="BSD-2-Clause AND GPL-2.0"
 LICENSE_SPDX="SPDX-License-Identifier: BSD-2-Clause AND GPL-2.0"
 LICENSE_URI=LICENSE
+DIFF_EXCLUDES="doc/lz4_manual.html doc/lz4frame_manual.html"
 
 PKG_NAMES="lz4 liblz4_1 liblz4-devel"
-lz4_CONTENTS="usr/bin/lz4* usr/bin/unlz4* usr/share/doc/ usr/share/man/"
+lz4_CONTENTS="--exclude=*.html usr/bin/lz4* usr/bin/unlz4* usr/share/doc/ usr/share/man/"
 liblz4_1_CATEGORY="Libs"
 liblz4_1_CONTENTS="usr/bin/cyglz4-1.dll"
 liblz4_devel_CATEGORY="Libs"
-liblz4_devel_CONTENTS="usr/include/lz4*.h usr/lib/liblz4.dll.a usr/lib/pkgconfig/"
+liblz4_devel_CONTENTS="usr/include/lz4*.h usr/lib/liblz4.dll.a usr/lib/pkgconfig/ usr/share/doc/lz4/lz4_manual.html usr/share/doc/lz4/lz4frame_manual.html"
 
 src_compile() {
 	lndirs
@@ -28,6 +29,7 @@ src_compile() {
 src_install() {
 	cd ${B}
 	cyginstall PREFIX=/usr
+	dodoc doc/lz4_manual.html doc/lz4frame_manual.html
 
 	rm -f ${D}/usr/lib/liblz4.a
 }
